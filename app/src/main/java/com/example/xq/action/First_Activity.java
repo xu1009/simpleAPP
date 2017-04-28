@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -217,6 +218,29 @@ public class First_Activity extends AppCompatActivity {
                                           @Override
                                           public void onItemClick(View view, int position) {
                                               String res = (String) ((TextView) view.findViewById(R.id.ele)).getText();
+                                             // if(view)
+//                                              lastRes = res;
+//
+//                                              if(((String) ((TextView) view.findViewById(R.id.ele)).getText()).equals(lastRes))
+//                                              {
+//                                                  ((TextView) view.findViewById(R.id.ele)).setBackgroundColor(Color.parseColor("#90EE90"));
+//                                              }
+//                                              else
+//                                              {
+//                                                  ((TextView) view.findViewById(R.id.ele)).setBackgroundColor(Color.parseColor("#FFFFFF"));
+//                                                 // view.setBackgroundColor(Color.parseColor("#FFFFFF"));
+//                                              }
+//                                              if(!res.equals(lastRes))
+//                                              {
+//                                                  if(!lastRes.equals(res))
+//                                                      view.setBackgroundColor(Color.parseColor("#FFFFFF"));
+//
+//                                                     view.setBackgroundColor(Color.parseColor("#4EEE94"));
+//                                                     lastRes = res;
+//                                              }
+//                                              else
+//                                                  view.setBackgroundColor(Color.parseColor("#FFFFFF"));
+
                                               id = res.split("  ")[2];
                                               Toast.makeText(First_Activity.this,res,Toast.LENGTH_SHORT).show();
 //                                              File outpuImage = new File(getExternalCacheDir(),id+".jpg");
@@ -363,6 +387,9 @@ public class First_Activity extends AppCompatActivity {
         }
         if(requestCode==2)   //相机活动销毁之前调用的函数
         {
+
+
+           //  System.out.print("");
              Uri uri1 = Uri.fromFile(outpuImage);
              Intent intent1 = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
              intent1.setData(uri1);

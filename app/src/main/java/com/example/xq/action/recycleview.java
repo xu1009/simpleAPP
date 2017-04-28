@@ -1,8 +1,10 @@
 package com.example.xq.action;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,7 @@ import java.util.ArrayList;
 public class recycleview extends RecyclerView.Adapter<recycleview.ViewHolder>{
     private ArrayList<String> ele;
     private Uri imageUri;
+    private ArrayList<Boolean> isClicks;
     public interface OnRecycleViewListener
     {
         void onItemClick(View view,int position);
@@ -46,6 +49,9 @@ public class recycleview extends RecyclerView.Adapter<recycleview.ViewHolder>{
     public recycleview(ArrayList<String> data)
     {
         this.ele = data;
+        isClicks = new ArrayList<>();
+        for(int i=0;i<ele.size();i++)
+            isClicks.add(false);
     }
 
     @Override
@@ -58,7 +64,9 @@ public class recycleview extends RecyclerView.Adapter<recycleview.ViewHolder>{
                                                {
                                                    @Override
                                                    public void onClick(View v) {
-                                                       int pos = holder.getLayoutPosition();
+                                                       int pos = holder.getLayoutPosition();   //view 会随着滑动变化，因此不能直接设置
+                                                       isClicks.set(pos,true);
+                                                       notifyDataSetChanged();
                                                        onRecycleViewListener.onItemClick(holder.itemView,pos);
                                                    }
                                                }
@@ -70,11 +78,15 @@ public class recycleview extends RecyclerView.Adapter<recycleview.ViewHolder>{
 
         return holder;
     }
-
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         String dta = ele.get(position);
         holder.element.setText(dta);
+        if(isClicks.get(position))
+            holder.element.setBackgroundColor(Color.parseColor("#90EE90"));
+        else
+            holder.element.setBackgroundColor(Color.parseColor("#FFFFFF"));
+       // holder.element.setBackgroundColor(Color.parseColor("#4EEE94"));
     }
 
     @Override
